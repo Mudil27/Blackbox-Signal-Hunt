@@ -1,45 +1,48 @@
 # Blackbox-Signal-Hunt
 Repository containing the solution for the Blackbox Signal Hunt organised by WnCC x Quant x MOCCM
-# 🚧 PPE Compliance Annotation Calibration
+# MOCCM Quant Hackathon 2026: The Black-Box Signal Hunt
+**Team:** Blackjacks  
+**Placement:** 🏆 10th Place (Out of 150+ Teams)
 
-> **🏆 Hackathon / Case Competition Achievement:** 
-> **Placed 10th out of 150+ teams!**
+Hosted by the **Motilal Oswal Centre for Capital Markets (MOCCM)** at IIT Bombay, in collaboration with the Quant Club and WnCC.
 
-## 📖 Project Overview
-This repository contains the solution for the **Unloq AI Training Role Case Study**[cite: 1]. The project focuses on a critical aspect of the Machine Learning lifecycle: **Data Quality and Pipeline Management**. 
+## Overview
+This repository contains the official submission for the MOCCM Black-Box Signal Hunt 2026. The competition demanded the discovery of a complex, multi-dimensional deterministic trading signal hidden within 9.45 million rows (10 years) of intraday market data. 
 
-The task was to step into the role of a Senior Annotator on a construction-site Personal Protective Equipment (PPE) compliance project[cite: 1]. The underlying computer vision model requires high-quality, consistent bounding-box/classification data to learn effectively, making annotator alignment absolutely essential.
+We successfully cracked the "White-Box" signal and engineered an ultra-low-latency, pure NumPy backtesting engine to execute our logic. Our dual pipeline successfully parsed, processed, and evaluated a hidden 5-year dataset in under 30 seconds during the final "15-Minute Drop" phase.
 
-## ⚠️ The Challenge
-The project tracks four classes per worker: **hard hat, hi-vis vest, safety glasses, and gloves**[cite: 1]. 
+## Phase 1: The Quant Strategy (Signal Discovery)
+**Architecture:** Regime-Regulated, Lead-Lag Statistical Arbitrage
 
-* **Target Inter-Annotator Agreement (IAA):** > 92%[cite: 1]
-* **Current IAA:** Dropped to 78%[cite: 1]
-* **Impending Deadline:** A new batch of 20,000 images is scheduled for labeling[cite: 1].
+The competition strictly prohibited Machine Learning, Neural Networks, or black-box APIs. Our alpha discovery relied on pure statistical mechanics. Instead of continuously predicting price movements, our strategy rests in cash until a highly specific, multi-asset deterministic state aligns.
 
-The objective was to lead a calibration round to rescue the IAA metric before the new batch is processed, preventing noisy data from poisoning the model's training set[cite: 1].
+Our "White-Box" mathematical logic dictates:
+* **The Regime Filter:** The engine waits for a specific liquidity state. `TICKER_02` must exhibit high momentum (Volume $\ge$ 2500) while `TICKER_38` must act as a noise filter, remaining below a specific maximum return threshold. Simultaneously, the target asset (`TICKER_00`) must already be exhibiting high variance.
+* **The Alpha Trigger:** Once the regime is confirmed, the engine delegates directional authority strictly to a leading indicator: `TICKER_01`.
+* **Execution:** If `TICKER_01` breaks a specific return threshold at interval $T$, the engine executes a deterministic, predictive trade on `TICKER_00` for the subsequent $T+1$ interval.
 
-## 📂 Repository Contents (Deliverables)
+## Phase 2: Ultra-Low-Latency Systems Engineering
+**Tech Stack:** Python, heavily vectorized NumPy, Native I/O
 
-This repository includes the three core deliverables required to solve the IAA bottleneck[cite: 1]:
+To survive the automated grader and the 30-second execution ceiling on a 500MB dataset, standard Python libraries like `pandas` and `Backtrader` were abandoned. 
 
-1. **`Calibration_Document.md`** 
-   * A comprehensive rulebook covering eight highly ambiguous edge cases (e.g., partial occlusions, distant workers, look-alike items, low-light conditions)[cite: 1]. 
-   * It provides strict, explicit decision rules to eliminate subjective guessing among the labeling team[cite: 1].
+* **Vectorized State Tracking:** The engine utilizes C-backed `numpy` arrays, utilizing functions like `np.roll` and `np.cumsum` to simultaneously calculate `Gross_Exposure`, `Cash_Balance`, `Interval_Turnover`, and `Gross_NAV` across 94,500 intervals without a single `for` loop.
+* **Native File I/O:** Bypassed `pandas.read_csv` overhead by writing custom native Python iterators that filter exclusively for necessary ticker constraints at the C-string level before memory allocation.
+* **No Look-Ahead Bias:** Strict array shifting guarantees calculations at interval $T$ only inform position sizing for the next open interval.
 
-2. **`Diagnosis_Note.md`**
-   * A strategic memo addressed to the Applied AI Engineer / Project Lead[cite: 1].
-   * Outlines the top three hypotheses for why the IAA degraded to 78%[cite: 1].
-   * Proposes three concrete, impact-ranked process changes to stabilize team consensus[cite: 1].
+## Constraint Management & Risk Modeling
+The automated grading infrastructure enforced realistic institutional constraints. Our execution engine survived the forensic accounting audit through defensive positioning:
 
-3. **`Annotator_Decision_Tree.md`**
-   * A MECE (Mutually Exclusive, Collectively Exhaustive) flowchart[cite: 1].
-   * Guides annotators step-by-step through the visual logic required to accurately classify an item as `Present`, `Absent`, or `Skip`[cite: 1].
+* **10 bps Transaction Friction:** We overcame the 0.10% transaction fee by utilizing wide `r_threshold` bands. We traded execution frequency for high expected mathematical value, preventing fee decay.
+* **Capital Ceilings & Margin Calls:** Position sizing was strictly hardcoded to an `EXPOSURE_FRACTION` of 0.10 (10% of NAV). Leaving a 90% uninvested cash buffer mathematically prevented sub-zero margin calls and kept us strictly beneath the \$1,000,000 (Long-Only) and \$2,000,000 (Long-Short) gross exposure ceilings.
+* **Flat Start / End Bounds:** Algorithmic safeguards explicitly zeroed out target shares on the final interval, guaranteeing an automatic liquidation to cash and a flat end state.
 
-## 🧠 Key Data Science Concepts Demonstrated
-* **Data Quality Assurance:** Understanding that "garbage in, garbage out" is the golden rule of ML. Model convergence relies entirely on consistent ground-truth labels.
-* **Handling Class Ambiguity:** Differentiating between negative training data (`Absent` - the feature is visible and missing) and null data (`Skip` - the feature is occluded or out of frame).
-* **Process Engineering:** Designing systematic interventions (like daily consensus syncs and pre-batch calibration gates) to manage human-in-the-loop ML pipelines.
+## Repository Structure
+* `engine.py`: The ultra-low-latency vectorized execution engine and strategy logic.
+* `teamname_proof.pdf`: The mathematical proof and defense of our statistical regime discovery.
+* `submissions/`: Output directory containing the mandatory timeline logs (`teamname_longonly_results.csv` and `teamname_longshort_results.csv`).
 
----
-*Built with a focus on robust data pipelines and model-centric AI principles.*
+## Execution
+To run the engine locally against the hackathon dataset:
+```bash
+python engine.py
