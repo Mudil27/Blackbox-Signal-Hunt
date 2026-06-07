@@ -38,11 +38,11 @@ The automated grading infrastructure enforced realistic institutional constraint
 * **Flat Start / End Bounds:** Algorithmic safeguards explicitly zeroed out target shares on the final interval, guaranteeing an automatic liquidation to cash and a flat end state.
 
 ## Repository Structure
-* `engine.py`: The ultra-low-latency vectorized execution engine and strategy logic.
-* `teamname_proof.pdf`: The mathematical proof and defense of our statistical regime discovery.
-* `submissions/`: Output directory containing the mandatory timeline logs (`teamname_longonly_results.csv` and `teamname_longshort_results.csv`).
+* `blackjacks_code.py`: The ultra-low-latency vectorized execution engine and strategy logic.
+* `blackjacks_proof.pdf`: The mathematical proof and defense of our statistical regime discovery.
+* `submissions/`: Output directory containing the mandatory timeline logs (`blackjacks_longonly_results.csv` and `blackjacks_longshort_results.csv`).
 
 ## Execution
 To run the engine locally against the hackathon dataset:
 ```bash
-python engine.py
+python blackjacks_code.py
