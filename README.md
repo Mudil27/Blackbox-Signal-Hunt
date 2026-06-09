@@ -2,7 +2,8 @@
 Repository containing the solution for the Blackbox Signal Hunt organised by WnCC x Quant x MOCCM
 # MOCCM Quant Hackathon 2026: The Black-Box Signal Hunt
 **Team:** Blackjacks  
-**Placement:** 🏆 10th Place (Out of 150+ Teams)
+**Placement:** 🏆 10th Place (Out of 150+ Teams)<br>
+**Team Members:** Mudil Goel, Arya Patil, Rutuparn Ranade
 
 Hosted by the **Motilal Oswal Centre for Capital Markets (MOCCM)** at IIT Bombay, in collaboration with the Quant Club and WnCC.
 
@@ -10,6 +11,8 @@ Hosted by the **Motilal Oswal Centre for Capital Markets (MOCCM)** at IIT Bombay
 This repository contains the official submission for the MOCCM Black-Box Signal Hunt 2026. The competition demanded the discovery of a complex, multi-dimensional deterministic trading signal hidden within 9.45 million rows (10 years) of intraday market data. 
 
 We successfully cracked the "White-Box" signal and engineered an ultra-low-latency, pure NumPy backtesting engine to execute our logic. Our dual pipeline successfully parsed, processed, and evaluated a hidden 5-year dataset in under 30 seconds during the final "15-Minute Drop" phase.
+
+We got a blended **Sharpe Ratio** of 9.57 which led us to 10th position among 150+ teams.
 
 ## Phase 1: The Quant Strategy (Signal Discovery)
 **Architecture:** Regime-Regulated, Lead-Lag Statistical Arbitrage
